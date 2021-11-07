@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 
 
 namespace ParserApplication.Structure {
-<<<<<<< HEAD
-    public class Parser 
-    {
-=======
     public class Parser {
         string numerocadena = "";
         Scanner scanner;
