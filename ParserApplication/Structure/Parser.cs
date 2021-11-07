@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ParserApplication.TokenConstruction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace ParserApplication.Structure {
                     {
                         pilaE.Pop();
                         pilaT.Pop();
-                        pilaT.Push(new Token() { value = "", Tag = TokenType.G });
+                        pilaT.Push(new Token() { Value = "", Tag = TokenType.G });
                     }
                     break;
                 case 2:
@@ -35,15 +36,15 @@ namespace ParserApplication.Structure {
                         {
                             pilaT.Pop();
                             pilaE.Pop();
-                            pilaT.Push(new Token() { value = "", Tag = TokenType.L });
+                            pilaT.Push(new Token() { Value = "", Tag = TokenType.L });
                         }
                     }
                     break;
                 case 3:
-                    pilaT.Push(new Token() { value = "", Tag = TokenType.L });
+                    pilaT.Push(new Token() { Value = "", Tag = TokenType.L });
                     break;
                 case 4:
-                    if (pilaT.Peek().Tag == TokenType.PuntoyComa)
+                    if (pilaT.Peek().Tag == TokenType.puntoycoma)
                     {
                         pilaE.Pop();
                         pilaT.Pop();
@@ -55,7 +56,7 @@ namespace ParserApplication.Structure {
                             {
                                 pilaE.Pop();
                                 pilaT.Pop();
-                                if (pilaT.Peek().Tag == TokenType.Dospuntos)
+                                if (pilaT.Peek().Tag == TokenType.igual)
                                 {
                                     pilaE.Pop();
                                     pilaT.Pop();
@@ -63,7 +64,7 @@ namespace ParserApplication.Structure {
                                     {
                                         pilaE.Pop();
                                         pilaT.Pop();
-                                        pilaT.Push(new Token() { value = "", Tag = TokenType.P });
+                                        pilaT.Push(new Token() { Value = "", Tag = TokenType.P });
                                     }
                                 }
                             }
@@ -79,12 +80,12 @@ namespace ParserApplication.Structure {
                         {
                             pilaE.Pop();
                             pilaT.Pop();
-                            pilaT.Push(new Token() { value = "", Tag = TokenType.C });
+                            pilaT.Push(new Token() { Value = "", Tag = TokenType.C });
                         }
                     }
                     break;
                 case 6:
-                    pilaT.Push(new Token() { value = "", Tag = TokenType.L });
+                    pilaT.Push(new Token() { Value = "", Tag = TokenType.L });
                     break;
                 case 7:
                     if (pilaT.Peek().Tag == TokenType.D)
@@ -95,24 +96,24 @@ namespace ParserApplication.Structure {
                         {
                             pilaE.Pop();
                             pilaT.Pop();
-                            if (pilaT.Peek().Tag == TokenType.Pipe)
+                            if (pilaT.Peek().Tag == TokenType.or)
                             {
                                 pilaT.Pop();
                                 pilaE.Pop();
-                                pilaT.Push(new Token() { value = "", Tag = TokenType.D });
+                                pilaT.Push(new Token() { Value = "", Tag = TokenType.D });
                             }
                         }
                     }
                     break;
                 case 8:
-                    pilaT.Push(new Token() { value = "", Tag = TokenType.D });
+                    pilaT.Push(new Token() { Value = "", Tag = TokenType.D });
                     break;
                 case 9:
                     if (pilaT.Peek().Tag == TokenType.V)
                     {
                         pilaE.Pop();
                         pilaT.Pop();
-                        pilaT.Push(new Token() { value = "", Tag = TokenType.id });
+                        pilaT.Push(new Token() { Value = "", Tag = TokenType.id });
                     }
                     break;
                 case 10:
@@ -120,7 +121,7 @@ namespace ParserApplication.Structure {
                     {
                         pilaE.Pop();
                         pilaT.Pop();
-                        pilaT.Push(new Token() { value = "", Tag = TokenType.term });
+                        pilaT.Push(new Token() { Value = "", Tag = TokenType.term });
                     }
                     break;
                 default:
@@ -181,8 +182,8 @@ namespace ParserApplication.Structure {
                     {
                         case TokenType.id:
                         case TokenType.term:
-                        case TokenType.PuntoyComa:
-                        case TokenType.Pipe:
+                        case TokenType.puntoycoma:
+                        case TokenType.or:
                         case TokenType.EOF:
                             ReduceRule(6);
                             break;
@@ -198,7 +199,7 @@ namespace ParserApplication.Structure {
         {
             switch (entrada.Peek().Tag)
             {
-                case TokenType.Dospuntos:
+                case TokenType.igual:
                     pilaT.Push(entrada.Pop());
                     pilaE.Push(State.I4);
                     Table();
