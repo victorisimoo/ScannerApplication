@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ParserApplication.TokenConstruction;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ParserApplication.Structure {
-    public class Parser {
-
+    public class Parser 
+    {
     }
 }
