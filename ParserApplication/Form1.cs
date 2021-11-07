@@ -14,7 +14,6 @@ namespace ParserApplication {
         public Parser () {
             InitializeComponent();
             txtFile.Enabled = false;
-            btnAnalyzer.Enabled = false;
         }
 
         private void btnFileSelect_Click ( object sender, EventArgs e ) {
@@ -31,7 +30,6 @@ namespace ParserApplication {
                     if (dialogResult == DialogResult.Yes) {
                         txtFile.Text = filePath;
                         txtFile.Enabled = false;
-                        btnAnalyzer.Enabled = true;
                         grammarAnalyzer(openFileDialog.OpenFile(), fileName);
                     }
                 }
@@ -44,7 +42,7 @@ namespace ParserApplication {
             using (StreamReader reader = new StreamReader(fileStream)) {
                 var line = reader.ReadLine();
                 while ((line = reader.ReadLine()) != null) {
-                    Console.WriteLine(line);
+                    
                 }
                         
             }
