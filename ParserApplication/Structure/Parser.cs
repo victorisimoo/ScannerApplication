@@ -334,6 +334,6 @@ namespace ParserApplication.Structure {
             pilaE.Push(State.I0);
             I0();
         }
->>>>>>> 5565b6b8711cdd153a8ed6165fb8a01c053746d8
+
     }
 }
