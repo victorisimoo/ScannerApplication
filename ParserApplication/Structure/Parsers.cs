@@ -85,7 +85,7 @@ namespace ParserApplication.TokenConstruction {
                     }
                     break;
                 case 6:
-                    pilaT.Push(new Token() { Value = "", Tag = TokenType.L });
+                    pilaT.Push(new Token() { Value = "", Tag = TokenType.C });
                     break;
                 case 7:
                     if (pilaT.Peek().Tag == TokenType.D)
@@ -109,19 +109,19 @@ namespace ParserApplication.TokenConstruction {
                     pilaT.Push(new Token() { Value = "", Tag = TokenType.D });
                     break;
                 case 9:
-                    if (pilaT.Peek().Tag == TokenType.V)
+                    if (pilaT.Peek().Tag == TokenType.id)
                     {
                         pilaE.Pop();
                         pilaT.Pop();
-                        pilaT.Push(new Token() { Value = "", Tag = TokenType.id });
+                        pilaT.Push(new Token() { Value = "", Tag = TokenType.V });
                     }
                     break;
                 case 10:
-                    if (pilaT.Peek().Tag == TokenType.V)
+                    if (pilaT.Peek().Tag == TokenType.term)
                     {
                         pilaE.Pop();
                         pilaT.Pop();
-                        pilaT.Push(new Token() { Value = "", Tag = TokenType.term });
+                        pilaT.Push(new Token() { Value = "", Tag = TokenType.V });
                     }
                     break;
                 default:
@@ -183,13 +183,28 @@ namespace ParserApplication.TokenConstruction {
                     switch (entrada.Peek().Tag)
                     {
                         case TokenType.id:
-                        case TokenType.term:
-                        case TokenType.puntoycoma:
-                        case TokenType.or:
-                        case TokenType.EOF:
-                            ReduceRule(6);
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I10);
                             Table();
                             break;
+                        case TokenType.term:
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I11);
+                            Table();
+                            break;
+                        case TokenType.puntoycoma:
+                            ReduceRule(8);
+                            Table();
+                            break;
+                        case TokenType.or:
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I9);
+                            Table();
+                            break;
+                        //case TokenType.EOF:
+                        //    ReduceRule(6);
+                        //    Table();
+                        //    break;
                         default:
                             throw new Exception("Syntax Error");
                             break;
@@ -256,6 +271,10 @@ namespace ParserApplication.TokenConstruction {
         private void I8() {
             switch (entrada.Peek().Tag) {
                 case TokenType.id:
+                case TokenType.term:
+                case TokenType.or:
+                case TokenType.puntoycoma:
+
                 case TokenType.EOF:
                     ReduceRule(5);
                     Table();
@@ -424,6 +443,7 @@ namespace ParserApplication.TokenConstruction {
                 default:
                     switch (entrada.Peek().Tag)
                     {
+                        case TokenType.inicial:
                         case TokenType.EOF:
                         case TokenType.id:
                             ReduceRule(3);
@@ -492,6 +512,7 @@ namespace ParserApplication.TokenConstruction {
         public void Parse2()
         {
             pilaE.Push(State.I0);
+            pilaT.Push(new Token() { Value = "", Tag = TokenType.inicial });
             I0();
             //Cola aqui
         }

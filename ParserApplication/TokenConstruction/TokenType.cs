@@ -13,5 +13,6 @@
     P = (char)7,
     C = (char)8,
     V = (char)9,
-    D = (char)16
+    D = (char)16,
+    inicial = 17
 }
