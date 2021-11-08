@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
-using ParserApplication.Structure;
-using ParserApplication.TokenConstruction;
 
 namespace ParserApplication {
     public partial class Parser:Form {
