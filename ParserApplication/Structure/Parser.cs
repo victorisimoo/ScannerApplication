@@ -14,7 +14,7 @@ namespace ParserApplication.TokenConstruction {
         Token token;
         Stack<Token> pilaT = new Stack<Token>();
         Stack<State> pilaE = new Stack<State>();
-        public Queue<Token> entrada = new Queue<Token>();
+        Queue<Token> entrada = new Queue<Token>();
 
         public Parser(Queue<Token> entradas)
         {

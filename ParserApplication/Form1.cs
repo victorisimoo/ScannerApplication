@@ -13,7 +13,7 @@ using ParserApplication.TokenConstruction;
 
 namespace ParserApplication {
     public partial class Parser:Form {
-        public Parser () {
+        public Parser (Queue<Token> entrada) {
             InitializeComponent();
             txtFile.Enabled = false;
         }
@@ -36,7 +36,9 @@ namespace ParserApplication {
                     }
                     
                 }
-
+                Queue<Token> entrada = new Queue<Token>();
+                Parser parser = new Parser(entrada);
+                
             }
             catch {
                     MessageBox.Show("El formato del archivo de entrada es incorrecto, \npor favor inténtelo nuevamente.");
