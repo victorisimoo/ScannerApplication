@@ -31,10 +31,12 @@ namespace ParserApplication {
                     }
                     
                 }
-                
             }
             catch {
-                    MessageBox.Show("El formato del archivo de entrada es incorrecto, \npor favor inténtelo nuevamente.");
+                txtResult.ForeColor = System.Drawing.Color.Red;
+                txtResult.Text = "ERROR EN LA GRAMÁTICA: " + getGramatica();
+                MessageBox.Show("Se han encontrado un error en el análisis de la gramática", 
+                        "¡Error encontrado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }   
         }
 
@@ -47,22 +49,33 @@ namespace ParserApplication {
                 }
                 lblGramatica.Text = gramaticaCompleta;
                 gramatica = gramaticaCompleta;
-                //string -> gramaticaCompleta tiene toda la cadena con la gramática completa
             }
+
             Queue<Token> entrada = new Queue<Token>();
             Scanner scanner = new Scanner(gramatica);
             Token nextToken;
-            do
-            {
+
+            do {
                 nextToken = scanner.GetToken();
                 entrada.Enqueue(nextToken);
             } while (nextToken.Tag != TokenType.EOF);
+
+            if (scanner.getErrorResult()) {
+                txtResult.ForeColor = System.Drawing.Color.Red;
+                txtResult.Text = "ERROR EN LA GRAMÁTICA: " + getGramatica();
+
+            } else {
+                txtResult.ForeColor = System.Drawing.Color.Green;
+                txtResult.Text = "La gramática se ha validado correctamente: \n" + gramatica;
+            }
+
             //Lexico todo bien
             Parsers parser = new Parsers(entrada);
             parser.Parse2();
-            MessageBox.Show(":D ok");
+        }
 
-
+        public string getGramatica () {
+            return this.gramatica;
         }
 
     }
