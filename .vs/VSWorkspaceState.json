@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ParserApplication",
+    "\\ParserApplication\\Structure"
   ],
-  "SelectedNode": "\\ParserApplication.sln",
+  "SelectedNode": "\\ParserApplication\\Structure\\Parser.cs",
   "PreviewInSolutionExplorer": false
 }
