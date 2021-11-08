@@ -12,10 +12,14 @@ namespace ParserApplication.TokenConstruction {
         string numerocadena = "";
         Scanner scanner;
         Token token;
-        Queue<Token> entrada = new Queue<Token>();
         Stack<Token> pilaT = new Stack<Token>();
         Stack<State> pilaE = new Stack<State>();
+        public Queue<Token> entrada = new Queue<Token>();
 
+        public Parser(Queue<Token> entradas)
+        {
+            entrada = entradas;
+        }
         void ReduceRule(int regla)
         {
             switch (regla)

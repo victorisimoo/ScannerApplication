@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using ParserApplication.Structure;
+using ParserApplication.TokenConstruction;
 
 namespace ParserApplication {
     public partial class Parser:Form {
@@ -32,10 +34,13 @@ namespace ParserApplication {
                         txtFile.Enabled = false;
                         grammarAnalyzer(openFileDialog.OpenFile(), fileName);
                     }
+                    
                 }
-            }catch {
-                MessageBox.Show("El formato del archivo de entrada es incorrecto, \npor favor inténtelo nuevamente.");
+
             }
+            catch {
+                    MessageBox.Show("El formato del archivo de entrada es incorrecto, \npor favor inténtelo nuevamente.");
+            }   
         }
 
         private void grammarAnalyzer (Stream fileStream, string fileName) {
