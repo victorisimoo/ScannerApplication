@@ -1,21 +1,20 @@
 ﻿using ParserApplication.Structure;
-using ParserApplication.TokenConstruction;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParserApplication.TokenConstruction {
-    public class Parser {
+    public class Parsers {
         string numerocadena = "";
         Scanner scanner;
         Token token;
-        Queue<Token> entrada = new Queue<Token>();
         Stack<Token> pilaT = new Stack<Token>();
         Stack<State> pilaE = new Stack<State>();
+        Queue<Token> entrada = new Queue<Token>();
 
+        public Parsers(Queue<Token> entradas)
+        {
+            entrada = entradas;
+        }
         void ReduceRule(int regla)
         {
             switch (regla)
@@ -352,7 +351,6 @@ namespace ParserApplication.TokenConstruction {
                             //error
                             break;
                     }
-
                     break;
             }
         }

@@ -8,3 +8,12 @@ C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\o
 C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\obj\Debug\ParserApplication.exe
 C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\obj\Debug\ParserApplication.pdb
 C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\obj\Debug\ParserApplication.Parser.resources
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\bin\Debug\ParserApplication.exe.config
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\bin\Debug\ParserApplication.exe
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\bin\Debug\ParserApplication.pdb
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.csprojAssemblyReference.cache
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.Parser.resources
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.Properties.Resources.resources
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.csproj.GenerateResource.cache
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.exe
+C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.pdb

@@ -1,6 +1,4 @@
-﻿using System;
-
-public enum TokenType {
+﻿public enum TokenType {
     apostrofe = '\'',
     puntoycoma = ';',
     or = '|',

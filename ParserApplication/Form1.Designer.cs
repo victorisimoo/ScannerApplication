@@ -32,6 +32,8 @@ namespace ParserApplication {
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblGramatica = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -56,11 +58,13 @@ namespace ParserApplication {
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lblGramatica);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.txtFile);
             this.panel1.Controls.Add(this.btnFileSelect);
             this.panel1.Location = new System.Drawing.Point(12, 74);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(402, 73);
+            this.panel1.Size = new System.Drawing.Size(402, 80);
             this.panel1.TabIndex = 3;
             // 
             // label1
@@ -110,6 +114,25 @@ namespace ParserApplication {
             this.label3.TabIndex = 7;
             this.label3.Text = "Resultado obtenido";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(15, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(125, 15);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Gramática ingresada:";
+            // 
+            // lblGramatica
+            // 
+            this.lblGramatica.AutoSize = true;
+            this.lblGramatica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGramatica.Location = new System.Drawing.Point(146, 53);
+            this.lblGramatica.Name = "lblGramatica";
+            this.lblGramatica.Size = new System.Drawing.Size(0, 15);
+            this.lblGramatica.TabIndex = 9;
+            // 
             // Parser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -141,6 +164,8 @@ namespace ParserApplication {
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblGramatica;
+        private System.Windows.Forms.Label label4;
     }
 }
 

@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structure\Parser.cs" />
+    <Compile Include="Structure\Parsers.cs" />
     <Compile Include="Structure\Scanner.cs" />
     <Compile Include="Structure\State.cs" />
     <Compile Include="TokenConstruction\Token.cs" />

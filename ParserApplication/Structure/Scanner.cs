@@ -1,5 +1,8 @@
 ﻿using ParserApplication.TokenConstruction;
 using System;
+using System.Threading.Tasks;
+using System.IO;
+using System.Windows.Forms;
 
 public class Scanner {
     //El scanner lee token por token
@@ -53,7 +56,7 @@ public class Scanner {
                             }
                             if ((char)TokenType.apostrofe == peek) {
                                 result.Value += peek.ToString();
-                            } else { Console.WriteLine("Error"); }
+                            } else { MessageBox.Show("Error de lexema"); }
                             break;
                         case (char)TokenType.puntoycoma:
                         case (char)TokenType.igual:
@@ -63,8 +66,8 @@ public class Scanner {
                             result.Tag = (TokenType)peek;
                             break;
                         default:
-                            if (char.IsLetterOrDigit(peek)) {
-                                while (char.IsLetterOrDigit(peek)) {
+                            if (char.IsLetter(peek) || peek == '_') {
+                                while (char.IsLetterOrDigit(peek) || peek == '_') {
                                     tokenFound = true;
                                     result.Tag = TokenType.id;
                                     result.Value += peek.ToString();
@@ -72,8 +75,7 @@ public class Scanner {
                                     peek = _regexp [_index];
                                 }
                                 _index--;
-                            } else { Console.WriteLine("Lex Error"); }
-
+                            } else { MessageBox.Show("Error de lexema"); }
                             break;
                     } //Switch peek
 
@@ -93,15 +95,15 @@ public class Scanner {
                             }
                             if ((char)TokenType.apostrofe == peek) {
                                 result.Value += peek.ToString();
-                            } else { Console.WriteLine("Lex Error, se esperaba una apostrofe"); }
+                            } else { MessageBox.Show("Error de lexema, se esperaba una apostrofe"); }
                             break;
                         case (char)TokenType.puntoycoma:
                         case (char)TokenType.igual:
                         case (char)TokenType.or:
                         case '\\':
                         case ' ':
-                            if (char.IsLetterOrDigit(peek)) {
-                                while (char.IsLetterOrDigit(peek)) {
+                            if (char.IsLetter(peek) || peek == '_') {
+                                while (char.IsLetterOrDigit(peek) || peek == '_') {
                                     tokenFound = true;
                                     result.Tag = TokenType.id;
                                     result.Value += peek.ToString();
@@ -109,10 +111,10 @@ public class Scanner {
                                     peek = _regexp [_index];
                                 }
                                 _index--;
-                            } else { Console.WriteLine("Lex Error"); }
+                            } else { MessageBox.Show("Error de lexema"); }
                             break;
                         default:
-                            Console.WriteLine("Lex Error");
+                            MessageBox.Show("Error de lexema");
                             break;
                     }
                     break; //case state1
