@@ -163,7 +163,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -191,7 +191,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -209,7 +209,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -225,7 +225,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -247,7 +247,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -261,7 +261,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -273,7 +273,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -285,7 +285,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         
@@ -323,6 +323,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -348,7 +349,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -364,7 +365,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //Error
+                    throw new Exception("Syntax Error");
                     break;
             }
 
@@ -377,6 +378,9 @@ namespace ParserApplication.TokenConstruction {
                 case TokenType.EOF:
                     ReduceRule(2);
                     Table();
+                    break;
+                default:
+                    throw new Exception("Syntax Error");
                     break;
             }
 
@@ -402,7 +406,7 @@ namespace ParserApplication.TokenConstruction {
                             //Aceptar
                             break;
                         default:
-                            //Error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -426,7 +430,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
