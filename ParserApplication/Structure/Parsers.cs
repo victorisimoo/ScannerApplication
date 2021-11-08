@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace ParserApplication.TokenConstruction {
     public class Parsers {
-        string numerocadena = "";
         Scanner scanner;
         Token token;
         Stack<Token> pilaT = new Stack<Token>();
@@ -507,7 +506,6 @@ namespace ParserApplication.TokenConstruction {
                     break;
             }
         }
-
 
         public void Parse2()
         {
