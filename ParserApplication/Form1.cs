@@ -58,8 +58,9 @@ namespace ParserApplication {
                 entrada.Enqueue(nextToken);
             } while (nextToken.Tag != TokenType.EOF);
             //Lexico todo bien
-            string x = "";
-            // Parsers parser = new Parsers(entrada);
+            Parsers parser = new Parsers(entrada);
+            parser.Parse2();
+            MessageBox.Show(":D ok");
 
 
         }
