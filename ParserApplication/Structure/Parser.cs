@@ -1,11 +1,6 @@
 ﻿using ParserApplication.Structure;
-using ParserApplication.TokenConstruction;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParserApplication.TokenConstruction {
     public class Parser {
@@ -356,7 +351,6 @@ namespace ParserApplication.TokenConstruction {
                             //error
                             break;
                     }
-
                     break;
             }
         }
