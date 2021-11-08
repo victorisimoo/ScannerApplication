@@ -12,7 +12,7 @@ namespace ParserApplication.TokenConstruction {
         string numerocadena = "";
         Scanner scanner;
         Token token;
-        Stack<Token> entrada = new Stack<Token>();
+        Queue<Token> entrada = new Queue<Token>();
         Stack<Token> pilaT = new Stack<Token>();
         Stack<State> pilaE = new Stack<State>();
 
@@ -201,7 +201,7 @@ namespace ParserApplication.TokenConstruction {
             switch (entrada.Peek().Tag)
             {
                 case TokenType.igual:
-                    pilaT.Push(entrada.Pop());
+                    pilaT.Push(entrada.Dequeue());
                     pilaE.Push(State.I4);
                     Table();
                     break;
@@ -237,7 +237,7 @@ namespace ParserApplication.TokenConstruction {
                     {
                         case TokenType.id:
                             pilaE.Push(State.I3);
-                            pilaT.Push(entrada.Pop());
+                            pilaT.Push(entrada.Dequeue());
                             Table();
                             break;
                         case TokenType.EOF:
@@ -331,6 +331,7 @@ namespace ParserApplication.TokenConstruction {
         {
             pilaE.Push(State.I0);
             I0();
+            //Cola aqui
         }
 
     }
