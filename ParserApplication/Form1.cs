@@ -3,14 +3,16 @@ using System.IO;
 using System.Windows.Forms;
 using ParserApplication.Structure;
 using ParserApplication.TokenConstruction;
+using System.Collections.Generic;
 
 namespace ParserApplication {
     public partial class Parser:Form {
-        public Parser (Queue<Token> entrada) {
+        public Parser () {
             InitializeComponent();
             txtFile.Enabled = false;
         }
 
+        public string gramatica = ""; 
         private void btnFileSelect_Click ( object sender, EventArgs e ) {
             var openFileDialog = new OpenFileDialog() {
                 Filter = "Text files (*.y)|*.y",
@@ -29,8 +31,6 @@ namespace ParserApplication {
                     }
                     
                 }
-                Queue<Token> entrada = new Queue<Token>();
-                Parser parser = new Parser(entrada);
                 
             }
             catch {
@@ -46,8 +46,22 @@ namespace ParserApplication {
                     gramaticaCompleta = gramaticaCompleta + ";" + line;
                 }
                 lblGramatica.Text = gramaticaCompleta;
+                gramatica = gramaticaCompleta;
                 //string -> gramaticaCompleta tiene toda la cadena con la gramática completa
             }
+            Queue<Token> entrada = new Queue<Token>();
+            Scanner scanner = new Scanner(gramatica);
+            Token nextToken;
+            do
+            {
+                nextToken = scanner.GetToken();
+                entrada.Enqueue(nextToken);
+            } while (nextToken.Tag != TokenType.EOF);
+            //Lexico todo bien
+            string x = "";
+            // Parsers parser = new Parsers(entrada);
+
+
         }
 
     }

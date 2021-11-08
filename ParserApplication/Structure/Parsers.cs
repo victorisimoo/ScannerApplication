@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace ParserApplication.TokenConstruction {
-    public class Parser {
+    public class Parsers {
         string numerocadena = "";
         Scanner scanner;
         Token token;
@@ -11,7 +11,7 @@ namespace ParserApplication.TokenConstruction {
         Stack<State> pilaE = new Stack<State>();
         Queue<Token> entrada = new Queue<Token>();
 
-        public Parser(Queue<Token> entradas)
+        public Parsers(Queue<Token> entradas)
         {
             entrada = entradas;
         }

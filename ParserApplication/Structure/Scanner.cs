@@ -66,8 +66,8 @@ public class Scanner {
                             result.Tag = (TokenType)peek;
                             break;
                         default:
-                            if (char.IsLetterOrDigit(peek)) {
-                                while (char.IsLetterOrDigit(peek)) {
+                            if (char.IsLetter(peek) || peek == '_') {
+                                while (char.IsLetterOrDigit(peek) || peek == '_') {
                                     tokenFound = true;
                                     result.Tag = TokenType.id;
                                     result.Value += peek.ToString();
@@ -76,7 +76,6 @@ public class Scanner {
                                 }
                                 _index--;
                             } else { MessageBox.Show("Error de lexema"); }
-
                             break;
                     } //Switch peek
 
@@ -103,8 +102,8 @@ public class Scanner {
                         case (char)TokenType.or:
                         case '\\':
                         case ' ':
-                            if (char.IsLetterOrDigit(peek)) {
-                                while (char.IsLetterOrDigit(peek)) {
+                            if (char.IsLetter(peek) || peek == '_') {
+                                while (char.IsLetterOrDigit(peek) || peek == '_') {
                                     tokenFound = true;
                                     result.Tag = TokenType.id;
                                     result.Value += peek.ToString();
