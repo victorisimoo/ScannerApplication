@@ -36,7 +36,7 @@ public class Scanner {
                     // Whitespace removal
                     while (char.IsWhiteSpace(peek)) {
                         _index++;
-                        peek = _regexp [_index];
+                        peek = _regexp[_index];
                     }
 
                     switch (peek) {
@@ -46,8 +46,8 @@ public class Scanner {
                         case (char)TokenType.apostrofe:
                             result.Value += peek.ToString();
                             _index++;
-                            peek = _regexp [_index];
-                            while (char.IsWhiteSpace(peek)|| char.IsLetterOrDigit(peek) || peek >= 33 && peek <= 38 || peek >= 40 && peek <= 47 || peek >= 58 && peek <= 63 || peek >= 123 && peek <= 126 || peek >= 123 && peek <= 126 || peek >= 93 && peek <= 95 || peek == '[')
+                            peek = _regexp[_index];
+                            while (char.IsWhiteSpace(peek) || char.IsLetterOrDigit(peek) || peek >= 33 && peek <= 38 || peek >= 40 && peek <= 47 || peek >= 58 && peek <= 63 || peek >= 123 && peek <= 126 || peek >= 123 && peek <= 126 || peek >= 93 && peek <= 95 || peek == '[' || peek == 10 || peek == 9 || peek == 92)
                             {
                                 tokenFound = true;
                                 result.Tag = TokenType.term;
@@ -88,7 +88,7 @@ public class Scanner {
                             result.Value += peek.ToString();
                             _index++;
                             peek = _regexp [_index];
-                            while (char.IsWhiteSpace(peek) || char.IsLetterOrDigit(peek) || peek >= 33 && peek <= 38 || peek >= 40 && peek <= 47 || peek >= 58 && peek <= 63 || peek >= 123 && peek <= 126 || peek >= 123 && peek <= 126 || peek >= 93 && peek <= 95 || peek == '[') {
+                            while (char.IsWhiteSpace(peek) || char.IsLetterOrDigit(peek) || peek >= 33 && peek <= 38 || peek >= 40 && peek <= 47 || peek >= 58 && peek <= 63 || peek >= 123 && peek <= 126 || peek >= 123 && peek <= 126 || peek >= 93 && peek <= 95 || peek == '[' || peek == 10 || peek == 9 || peek == 92) {
                                 tokenFound = true;
                                 result.Tag = TokenType.term;
                                 result.Value += peek.ToString();
