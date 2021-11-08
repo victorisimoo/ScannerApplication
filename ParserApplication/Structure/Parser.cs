@@ -1,12 +1,13 @@
-﻿using ParserApplication.TokenConstruction;
+﻿using ParserApplication.Structure;
+using ParserApplication.TokenConstruction;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace ParserApplication.Structure {
+namespace ParserApplication.TokenConstruction {
     public class Parser {
         string numerocadena = "";
         Scanner scanner;
@@ -272,9 +273,6 @@ namespace ParserApplication.Structure {
                     }
                     break;
             }
-
-
-
         }
 
         private void Table()
