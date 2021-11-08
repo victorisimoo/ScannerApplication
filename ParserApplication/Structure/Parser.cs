@@ -160,19 +160,178 @@ namespace ParserApplication.TokenConstruction {
             }
 
         }
-        private void I15() { }
-        private void I14() { }
-        private void I13() { }
-        private void I12() { }
-        private void I11() { }
-        private void I10() { }
-        private void I9() { }
-        private void I8() { }
-        private void I7() { }
-        private void I6() { }
+        private void I13() {
+            switch (entrada.Peek().Tag)
+            {
+                case TokenType.puntoycoma:
+                    ReduceRule(7);
+                    Table();
+                    break;
+                default:
+                    //error
+                    break;
+            }
+        }
+        private void I12() {
+            switch (pilaT.Peek().Tag)
+            {
+                case TokenType.D:
+                    pilaE.Push(State.I13);
+                    Table();
+                    break;
+                case TokenType.V:
+                    pilaE.Push(State.I8);
+                    Table();
+                    break;
+
+                default:
+                    switch (entrada.Peek().Tag)
+                    {
+                        case TokenType.id:
+                        case TokenType.term:
+                        case TokenType.puntoycoma:
+                        case TokenType.or:
+                        case TokenType.EOF:
+                            ReduceRule(6);
+                            Table();
+                            break;
+                        default:
+                            //error
+                            break;
+                    }
+                    break;
+            }
+        }
+        private void I11() {
+            switch (entrada.Peek().Tag)
+            {
+                case TokenType.id:
+                case TokenType.term:
+                case TokenType.puntoycoma:
+                case TokenType.or:
+                case TokenType.EOF:
+                    ReduceRule(10);
+                    Table();
+                    break;
+                default:
+                    //error
+                    break;
+            }
+        }
+        private void I10() {
+            switch (entrada.Peek().Tag)
+            {
+                case TokenType.id:
+                case TokenType.term:
+                case TokenType.puntoycoma:
+                case TokenType.or:
+                case TokenType.EOF:
+                    ReduceRule(9);
+                    Table();
+                    break;
+                default:
+                    //error
+                    break;
+            }
+        }
+        private void I9() {
+            switch (pilaT.Peek().Tag)
+            {
+                case TokenType.C:
+                    pilaE.Push(State.I12);
+                    Table();
+                    break;
+                default:
+                    switch (entrada.Peek().Tag) {
+                        case TokenType.id:
+                        case TokenType.term:
+                        case TokenType.puntoycoma:
+                        case TokenType.or:
+                        case TokenType.EOF:
+                            ReduceRule(6);
+                            Table();
+                            break;
+                        default:
+                            //error
+                            break;
+                    }
+                    break;
+            }
+        }
+        private void I8() {
+            switch (entrada.Peek().Tag) {
+                case TokenType.id:
+                case TokenType.EOF:
+                    ReduceRule(5);
+                    Table();
+                    break;
+                default:
+                    //error
+                    break;
+            }
+        }
+        private void I7() {
+            switch (entrada.Peek().Tag) {
+                case TokenType.id:
+                case TokenType.EOF:
+                    ReduceRule(4);
+                    Table();
+                    break;
+                default:
+                    //error
+                    break;
+            }
+        }
+        private void I6() {
+            switch (entrada.Peek().Tag) {
+                case TokenType.puntoycoma:
+                    pilaT.Push(entrada.Dequeue());
+                    pilaE.Push(State.I7);
+                    Table();
+                    break;
+                default:
+                    //error
+                    break;
+            }
+        
+        }
         private void I5()
         {
-
+            switch (pilaT.Peek().Tag) {
+                case TokenType.D:
+                    pilaE.Push(State.I6);
+                    Table();
+                    break;
+                case TokenType.V:
+                    pilaE.Push(State.I8);
+                    Table();
+                    break;
+                default:
+                    switch (entrada.Peek().Tag) {
+                        case TokenType.id:
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I10);
+                            Table();
+                            break;
+                        case TokenType.term:
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I11);
+                            Table();
+                            break;
+                        case TokenType.puntoycoma:
+                            ReduceRule(8);
+                            Table();
+                            break;
+                        case TokenType.or:
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I9);
+                            Table();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+            }
         }
         private void I4()
         {
@@ -191,6 +350,7 @@ namespace ParserApplication.TokenConstruction {
                         case TokenType.or:
                         case TokenType.EOF:
                             ReduceRule(6);
+                            Table();
                             break;
                         default:
                             //error
