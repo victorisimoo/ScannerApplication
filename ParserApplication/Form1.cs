@@ -43,7 +43,7 @@ namespace ParserApplication {
                 var line = reader.ReadLine();
                 string gramaticaCompleta = line;
                 while ((line = reader.ReadLine()) != null) {
-                    gramaticaCompleta = gramaticaCompleta + ";" + line;
+                    gramaticaCompleta = gramaticaCompleta + line;
                 }
                 lblGramatica.Text = gramaticaCompleta;
                 gramatica = gramaticaCompleta;
