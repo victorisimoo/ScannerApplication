@@ -3,15 +3,15 @@ using System;
 using System.Collections.Generic;
 
 namespace ParserApplication.TokenConstruction {
-    public class Parser {
+    public class Parsers {
         string numerocadena = "";
         Scanner scanner;
         Token token;
         Stack<Token> pilaT = new Stack<Token>();
         Stack<State> pilaE = new Stack<State>();
-        public Queue<Token> entrada = new Queue<Token>();
+        Queue<Token> entrada = new Queue<Token>();
 
-        public Parser(Queue<Token> entradas)
+        public Parsers(Queue<Token> entradas)
         {
             entrada = entradas;
         }
@@ -85,7 +85,7 @@ namespace ParserApplication.TokenConstruction {
                     }
                     break;
                 case 6:
-                    pilaT.Push(new Token() { Value = "", Tag = TokenType.L });
+                    pilaT.Push(new Token() { Value = "", Tag = TokenType.C });
                     break;
                 case 7:
                     if (pilaT.Peek().Tag == TokenType.D)
@@ -109,19 +109,19 @@ namespace ParserApplication.TokenConstruction {
                     pilaT.Push(new Token() { Value = "", Tag = TokenType.D });
                     break;
                 case 9:
-                    if (pilaT.Peek().Tag == TokenType.V)
+                    if (pilaT.Peek().Tag == TokenType.id)
                     {
                         pilaE.Pop();
                         pilaT.Pop();
-                        pilaT.Push(new Token() { Value = "", Tag = TokenType.id });
+                        pilaT.Push(new Token() { Value = "", Tag = TokenType.V });
                     }
                     break;
                 case 10:
-                    if (pilaT.Peek().Tag == TokenType.V)
+                    if (pilaT.Peek().Tag == TokenType.term)
                     {
                         pilaE.Pop();
                         pilaT.Pop();
-                        pilaT.Push(new Token() { Value = "", Tag = TokenType.term });
+                        pilaT.Push(new Token() { Value = "", Tag = TokenType.V });
                     }
                     break;
                 default:
@@ -163,7 +163,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -183,15 +183,30 @@ namespace ParserApplication.TokenConstruction {
                     switch (entrada.Peek().Tag)
                     {
                         case TokenType.id:
-                        case TokenType.term:
-                        case TokenType.puntoycoma:
-                        case TokenType.or:
-                        case TokenType.EOF:
-                            ReduceRule(6);
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I10);
                             Table();
                             break;
+                        case TokenType.term:
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I11);
+                            Table();
+                            break;
+                        case TokenType.puntoycoma:
+                            ReduceRule(8);
+                            Table();
+                            break;
+                        case TokenType.or:
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE.Push(State.I9);
+                            Table();
+                            break;
+                        //case TokenType.EOF:
+                        //    ReduceRule(6);
+                        //    Table();
+                        //    break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -209,7 +224,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -225,7 +240,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -247,7 +262,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -256,12 +271,16 @@ namespace ParserApplication.TokenConstruction {
         private void I8() {
             switch (entrada.Peek().Tag) {
                 case TokenType.id:
+                case TokenType.term:
+                case TokenType.or:
+                case TokenType.puntoycoma:
+
                 case TokenType.EOF:
                     ReduceRule(5);
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -273,7 +292,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         }
@@ -285,7 +304,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //error
+                    throw new Exception("Syntax Error");
                     break;
             }
         
@@ -323,6 +342,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -348,7 +368,7 @@ namespace ParserApplication.TokenConstruction {
                             Table();
                             break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -364,7 +384,7 @@ namespace ParserApplication.TokenConstruction {
                     Table();
                     break;
                 default:
-                    //Error
+                    throw new Exception("Syntax Error");
                     break;
             }
 
@@ -377,6 +397,9 @@ namespace ParserApplication.TokenConstruction {
                 case TokenType.EOF:
                     ReduceRule(2);
                     Table();
+                    break;
+                default:
+                    throw new Exception("Syntax Error");
                     break;
             }
 
@@ -402,7 +425,7 @@ namespace ParserApplication.TokenConstruction {
                             //Aceptar
                             break;
                         default:
-                            //Error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -420,13 +443,14 @@ namespace ParserApplication.TokenConstruction {
                 default:
                     switch (entrada.Peek().Tag)
                     {
+                        case TokenType.inicial:
                         case TokenType.EOF:
                         case TokenType.id:
                             ReduceRule(3);
                             Table();
                             break;
                         default:
-                            //error
+                            throw new Exception("Syntax Error");
                             break;
                     }
                     break;
@@ -488,6 +512,7 @@ namespace ParserApplication.TokenConstruction {
         public void Parse2()
         {
             pilaE.Push(State.I0);
+            pilaT.Push(new Token() { Value = "", Tag = TokenType.inicial });
             I0();
             //Cola aqui
         }
