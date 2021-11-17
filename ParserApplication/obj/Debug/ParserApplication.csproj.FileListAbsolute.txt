@@ -17,3 +17,7 @@ C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\Par
 C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.csproj.GenerateResource.cache
 C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.exe
 C:\Users\Owner-1\source\repos\ScannerApplication\ParserApplication\obj\Debug\ParserApplication.pdb
+C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\bin\Debug\ParserApplication.exe.manifest
+C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\bin\Debug\ParserApplication.application
+C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\obj\Debug\ParserApplication.exe.manifest
+C:\Users\VICTORNOEHERNANDEZME\source\repos\ParserApplication\ParserApplication\obj\Debug\ParserApplication.application
