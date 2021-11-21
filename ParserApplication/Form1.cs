@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using ParserApplication.Structure;
 using ParserApplication.TokenConstruction;
 using System.Collections.Generic;
+using ParserApplication.LALR;
 
 namespace ParserApplication {
     public partial class Parser:Form {
@@ -68,10 +69,13 @@ namespace ParserApplication {
                 txtResult.ForeColor = System.Drawing.Color.Green;
                 txtResult.Text = "La gramática se ha validado correctamente: \n" + gramatica;
             }
-
+            Token[] entradas = entrada.ToArray();
             //Lexico todo bien
             Parsers parser = new Parsers(entrada);
             parser.Parse2();
+            //parser todo bien
+            // ingresar al lalr
+            ConcatenarTokens concatenartokens = new ConcatenarTokens(entradas);
         }
 
         public string getGramatica () {
