@@ -265,8 +265,16 @@ namespace ParserApplication.LALR
                     index = ListofFollow.IndexOf(item);
                 }
             }
-             ListofFollow[index].lista = (Toadd);
-                         
+            if (Toadd.Count == 0)
+            {
+                Toadd.Add("$");
+                ListofFollow[index].lista = (Toadd);
+            }
+            else
+            {
+                ListofFollow[index].lista = (Toadd);
+            }
+                        
             return Toadd;
         }
 
