@@ -151,7 +151,7 @@ namespace ParserApplication.LALR
             {
                 BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
             }
-        }
+        } 
 
 
         public List<ListadeTokens> GetRuleId(string id) {
