@@ -75,7 +75,7 @@ namespace ParserApplication {
             parser.Parse2();
             //parser todo bien
             // ingresar al lalr
-            ConcatenarTokens concatenartokens = new ConcatenarTokens(entradas);
+            Rules concatenartokens = new Rules(entradas);
         }
 
         public string getGramatica () {

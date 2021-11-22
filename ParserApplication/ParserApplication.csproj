@@ -80,8 +80,10 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="LALR\ConcatenarTokens.cs" />
-    <Compile Include="LALR\Reglas.cs" />
+    <Compile Include="LALR\ListadeTokens.cs" />
+    <Compile Include="LALR\Rules.cs" />
+    <Compile Include="LALR\Follow.cs" />
+    <Compile Include="LALR\TokenFollow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structure\Parsers.cs" />

@@ -7,13 +7,13 @@ using ParserApplication.TokenConstruction;
 
 namespace ParserApplication.LALR
 {
-    public class ConcatenarTokens
+    public class Rules
     {
-        List<List<Token>> Reglas = new List<List<Token>>();
+        public List<ListadeTokens> Reglas = new List<ListadeTokens>();
         Token tokenid;
         List<Token> entradas = new List<Token>();
         List<Token> ingresar = new List<Token>();
-        public ConcatenarTokens(Token[] entrada)
+        public Rules(Token[] entrada)
         {
             entradas = entrada.ToList();
 
@@ -25,7 +25,8 @@ namespace ParserApplication.LALR
                 }
                 if (entradas[i].Tag == TokenType.or)
                 {
-                    Reglas.Add(ingresar);
+                    ListadeTokens mandar = new ListadeTokens(ingresar);
+                    Reglas.Add(mandar);
                     tokenid = ingresar[0]; //lee id
                     ingresar = new List<Token>(); //vacia
                     ingresar.Add(tokenid);
@@ -34,7 +35,8 @@ namespace ParserApplication.LALR
                 }
                 if (entradas[i].Tag == TokenType.puntoycoma)
                 {
-                    Reglas.Add(ingresar);
+                    ListadeTokens mandar = new ListadeTokens(ingresar);
+                    Reglas.Add(mandar);
                     ingresar = new List<Token>();
                 }
                 else
@@ -43,7 +45,7 @@ namespace ParserApplication.LALR
                 }
 
             }
-            ingresar = null;
+            TokenFollow enviar = new TokenFollow(Reglas);
           
         }
     }
