@@ -83,5 +83,8 @@ namespace ParserApplication {
             return this.gramatica;
         }
 
+        private void btnAnalysis_Click ( object sender, EventArgs e ) {
+            string value = txtAnalysis.Text;
+        }
     }
 }
