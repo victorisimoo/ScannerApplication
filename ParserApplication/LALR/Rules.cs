@@ -42,10 +42,9 @@ namespace ParserApplication.LALR
             }
             Graph Grafo = new Graph(Reglas);
             Grafo.BuildGraph();
-            //TokenFollow enviar = new TokenFollow(Reglas);
-            
+           
         }
         
         
-        }
+    }
 }
