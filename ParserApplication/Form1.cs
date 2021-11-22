@@ -34,6 +34,7 @@ namespace ParserApplication {
                 }
             }
             catch {
+
                 txtResult.ForeColor = System.Drawing.Color.Red;
                 txtResult.Text = "ERROR EN LA GRAMÁTICA: " + getGramatica();
                 MessageBox.Show("Se han encontrado un error en el análisis de la gramática", 
