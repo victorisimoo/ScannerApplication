@@ -34,6 +34,7 @@ namespace ParserApplication.LALR
                     if (Reglas[i].listas[0].Tag != TokenType.id)
                     {
                          firsts.Add(Reglas[i].listas[0]);
+                         inicio.token
                     }
                     else
                     {
