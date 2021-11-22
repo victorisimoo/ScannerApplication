@@ -9,7 +9,7 @@ namespace ParserApplication.LALR
 {
     public class ListadeTokens
     {
-        List<Token> listas;
+        public List<Token> listas;
         public Token idRule;
         string regla = ""; 
         public ListadeTokens(List<Token> lista)

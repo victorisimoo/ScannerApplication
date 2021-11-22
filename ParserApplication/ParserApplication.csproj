@@ -82,7 +82,7 @@
     </Compile>
     <Compile Include="LALR\ListadeTokens.cs" />
     <Compile Include="LALR\Rules.cs" />
-    <Compile Include="LALR\Follow.cs" />
+    <Compile Include="LALR\First.cs" />
     <Compile Include="LALR\TokenFollow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

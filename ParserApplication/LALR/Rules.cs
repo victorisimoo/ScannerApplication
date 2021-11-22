@@ -10,9 +10,9 @@ namespace ParserApplication.LALR
     public class Rules
     {
         public List<ListadeTokens> Reglas = new List<ListadeTokens>();
-        Token tokenid;
+        public Token tokenid;
         List<Token> entradas = new List<Token>();
-        List<Token> ingresar = new List<Token>();
+        public List<Token> ingresar = new List<Token>();
         public Rules(Token[] entrada)
         {
             entradas = entrada.ToList();
