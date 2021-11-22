@@ -65,6 +65,11 @@ namespace ParserApplication.LALR
                 BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
             }
             BuildTable();
+            foreach (var item in _rulelist)
+            {
+                List<string> Firstlist = new List<string>();
+                Firstlist.AddRange(First(item.identifier));
+            }
         }
         public TokenType Match(string value) {
             foreach (var item in _rulelist)
@@ -151,9 +156,31 @@ namespace ParserApplication.LALR
             {
                 BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
             }
-        } 
+        }
 
-
+        public List<string> First(string id) {
+            List<string> Toadd = new List<string>();
+            foreach (var item in _rulelist)
+            {
+                    if (id == item.identifier)
+                    {
+                        if (id != item.listas[0].Value)
+                        { 
+                            if (item.listas[0].Tag == TokenType.term)
+                            {
+                                Toadd.Add(item.listas[0].Value);
+                            }
+                             else if (item.listas[0].Tag == TokenType.id)
+                             { 
+                                 Toadd.AddRange(First(item.listas[0].Value));
+                             }
+                        }
+                    }
+                }
+            return Toadd;
+        }
+            
+        
         public List<ListadeTokens> GetRuleId(string id) {
             List<ListadeTokens> Toadd = new List<ListadeTokens>();
             foreach (var item in _rulelist)
