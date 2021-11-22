@@ -89,6 +89,28 @@ namespace ParserApplication {
 
         private void btnAnalysis_Click(object sender, EventArgs e) {
             string value = txtAnalysis.Text;
+            Queue<Token> entrada = new Queue<Token>();
+            Scanner scanner = new Scanner(value);
+            Token nextToken;
+            do
+            {
+                nextToken = scanner.GetToken();
+                entrada.Enqueue(nextToken);
+            } while (nextToken.Tag != TokenType.EOF);
+            if (scanner.getErrorResult())
+            {
+
+                lblAnalysisResult.ForeColor = System.Drawing.Color.Red;
+                lblAnalysisResult.Text = "INCORRECTO";
+
+            }
+            else
+            {
+                lblAnalysisResult.ForeColor = System.Drawing.Color.Green;
+                lblAnalysisResult.Text = "CORRECTO";
+
+            }
+
         }
 
 
