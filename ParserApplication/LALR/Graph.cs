@@ -83,12 +83,12 @@ namespace ParserApplication.LALR
                 BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
             }
             BuildTable();
-            foreach (var item in _rulelist)
+            foreach (var item in ListofFirst)
             {
                 List<string> Firstlist = new List<string>();
-                Firstlist.AddRange(First(item.identifier));
+                Firstlist.AddRange(First(item.token.Value));
             }
-            foreach (var item in ListofFirst)
+            foreach (var item in ListofFollow)
             {
                 List<string> Firstlist = new List<string>();
                 Firstlist.AddRange(Follow(item.token.Value));
@@ -196,7 +196,6 @@ namespace ParserApplication.LALR
                         }
                             else if (item.listas[0].Tag == TokenType.id)
                             { 
-                                
                                 Toadd.AddRange(First(item.listas[0].Value));
                             }
                     }
@@ -237,18 +236,23 @@ namespace ParserApplication.LALR
                                     {
                                         Toadd.Add(items.lista[i + 1]);
                                     }
-
                                 }
-
                             }
                             else
                             {
-                                Toadd.Add("$");
+                                if (!Toadd.Contains("$"))
+                                {
+                                    Toadd.Add("$");
+                                }
+                                
                             }
                         }
                         else
                         {
-                            Toadd.Add("$");
+                            if (!Toadd.Contains("$"))
+                            {
+                                Toadd.Add("$");
+                            }
                         }  
                     }
                 }
@@ -261,7 +265,8 @@ namespace ParserApplication.LALR
                     index = ListofFollow.IndexOf(item);
                 }
             }
-            ListofFollow[index].lista = Toadd;
+             ListofFollow[index].lista = (Toadd);
+                         
             return Toadd;
         }
 
