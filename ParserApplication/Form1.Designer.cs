@@ -34,8 +34,16 @@ namespace ParserApplication {
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtResult = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblAnalysisResult = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtAnalysis = new System.Windows.Forms.TextBox();
+            this.btnAnalysis = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFile
@@ -110,7 +118,7 @@ namespace ParserApplication {
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.txtResult);
-            this.panel2.Location = new System.Drawing.Point(12, 182);
+            this.panel2.Location = new System.Drawing.Point(13, 178);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(402, 114);
             this.panel2.TabIndex = 6;
@@ -127,18 +135,89 @@ namespace ParserApplication {
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(27, 172);
+            this.label3.Location = new System.Drawing.Point(28, 168);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 17);
             this.label3.TabIndex = 7;
             this.label3.Text = "Resultado obtenido";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(25, 307);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(111, 17);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Análisis de cadena";
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.lblAnalysisResult);
+            this.panel3.Controls.Add(this.label6);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.txtAnalysis);
+            this.panel3.Controls.Add(this.btnAnalysis);
+            this.panel3.Location = new System.Drawing.Point(13, 315);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(402, 80);
+            this.panel3.TabIndex = 8;
+            // 
+            // lblAnalysisResult
+            // 
+            this.lblAnalysisResult.AutoSize = true;
+            this.lblAnalysisResult.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAnalysisResult.Location = new System.Drawing.Point(87, 53);
+            this.lblAnalysisResult.Name = "lblAnalysisResult";
+            this.lblAnalysisResult.Size = new System.Drawing.Size(55, 17);
+            this.lblAnalysisResult.TabIndex = 10;
+            this.lblAnalysisResult.Text = "Correcto";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(88, 53);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 17);
+            this.label6.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(15, 53);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 17);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Resultado: ";
+            // 
+            // txtAnalysis
+            // 
+            this.txtAnalysis.Location = new System.Drawing.Point(13, 27);
+            this.txtAnalysis.Name = "txtAnalysis";
+            this.txtAnalysis.Size = new System.Drawing.Size(278, 20);
+            this.txtAnalysis.TabIndex = 1;
+            // 
+            // btnAnalysis
+            // 
+            this.btnAnalysis.Location = new System.Drawing.Point(297, 25);
+            this.btnAnalysis.Name = "btnAnalysis";
+            this.btnAnalysis.Size = new System.Drawing.Size(83, 23);
+            this.btnAnalysis.TabIndex = 2;
+            this.btnAnalysis.Text = "Analizar";
+            this.btnAnalysis.UseVisualStyleBackColor = true;
+            this.btnAnalysis.Click += new System.EventHandler(this.btnAnalysis_Click);
             // 
             // Parser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(426, 319);
+            this.ClientSize = new System.Drawing.Size(427, 417);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
@@ -153,6 +232,8 @@ namespace ParserApplication {
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,6 +250,13 @@ namespace ParserApplication {
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblGramatica;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtAnalysis;
+        private System.Windows.Forms.Button btnAnalysis;
+        private System.Windows.Forms.Label lblAnalysisResult;
     }
 }
 

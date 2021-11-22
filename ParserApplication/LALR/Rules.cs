@@ -19,34 +19,33 @@ namespace ParserApplication.LALR
 
             for (int i = 0; i < entradas.Count; i++)
             {
-                if (entradas[i].Tag == TokenType.igual)
-                {
-                    i++;
-                }
-                if (entradas[i].Tag == TokenType.or)
-                {
-                    ListadeTokens mandar = new ListadeTokens(ingresar);
-                    Reglas.Add(mandar);
-                    tokenid = ingresar[0]; //lee id
-                    ingresar = new List<Token>(); //vacia
-                    ingresar.Add(tokenid);
-                    i++;
+                switch (entradas[i].Tag) {
+                    case TokenType.igual:
+                        break;
+                    case TokenType.or:
+                        tokenid = ingresar[0];
+                        ListadeTokens mandar = new ListadeTokens(ingresar);
+                        Reglas.Add(mandar);
+                        ingresar = new List<Token>();
+                        ingresar.Add(tokenid);
+                        break;
+                    case TokenType.puntoycoma:
+                        ListadeTokens mandar2 = new ListadeTokens(ingresar);
+                        Reglas.Add(mandar2);
+                        ingresar = new List<Token>();
+                        break;
 
-                }
-                if (entradas[i].Tag == TokenType.puntoycoma)
-                {
-                    ListadeTokens mandar = new ListadeTokens(ingresar);
-                    Reglas.Add(mandar);
-                    ingresar = new List<Token>();
-                }
-                else
-                {
-                    ingresar.Add(entradas[i]);
-                }
-
+                    default:
+                        ingresar.Add(entradas[i]);
+                        break;
+                }                                         
             }
-            TokenFollow enviar = new TokenFollow(Reglas);
-          
+            Graph Grafo = new Graph(Reglas);
+            Grafo.BuildGraph();
+            //TokenFollow enviar = new TokenFollow(Reglas);
+            
         }
-    }
+        
+        
+        }
 }
