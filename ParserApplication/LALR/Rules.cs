@@ -40,11 +40,9 @@ namespace ParserApplication.LALR
                         break;
                 }                                         
             }
-            Graph Grafo = new Graph(Reglas);
-            Grafo.BuildGraph();
+            
            
         }
-        
         
     }
 }

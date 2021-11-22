@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using ParserApplication.LALR;
 
 namespace ParserApplication {
-    public partial class Parser:Form {
-        public Parser () {
+    public partial class Parser : Form {
+        public Parser() {
             InitializeComponent();
             txtFile.Enabled = false;
         }
 
-        public string gramatica = ""; 
-        private void btnFileSelect_Click ( object sender, EventArgs e ) {
+        public string gramatica = "";
+        private void btnFileSelect_Click(object sender, EventArgs e) {
             var openFileDialog = new OpenFileDialog() {
                 Filter = "Text files (*.y)|*.y",
                 Title = "ArchivoSeleccionado"
@@ -30,27 +30,27 @@ namespace ParserApplication {
                         txtFile.Enabled = false;
                         grammarAnalyzer(openFileDialog.OpenFile(), fileName);
                     }
-                    
+
                 }
             }
             catch {
 
                 txtResult.ForeColor = System.Drawing.Color.Red;
                 txtResult.Text = "ERROR EN LA GRAMÁTICA: " + getGramatica();
-                MessageBox.Show("Se han encontrado un error en el análisis de la gramática", 
+                MessageBox.Show("Se han encontrado un error en el análisis de la gramática",
                         "¡Error encontrado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }   
+            }
         }
 
-        private void grammarAnalyzer (Stream fileStream, string fileName) {
+        private void grammarAnalyzer(Stream fileStream, string fileName) {
             using (StreamReader reader = new StreamReader(fileStream)) {
                 var line = reader.ReadLine();
                 string gramaticaCompleta = line;
                 while ((line = reader.ReadLine()) != null) {
                     gramaticaCompleta = gramaticaCompleta + line;
                 }
-                lblGramatica.Text = gramaticaCompleta;
                 gramatica = gramaticaCompleta;
+                labelmostrar.Text = gramaticaCompleta.Replace(";", "\r\n");
             }
 
             Queue<Token> entrada = new Queue<Token>();
@@ -68,7 +68,8 @@ namespace ParserApplication {
 
             } else {
                 txtResult.ForeColor = System.Drawing.Color.Green;
-                txtResult.Text = "La gramática se ha validado correctamente: \n" + gramatica;
+                txtResult.Text = "La gramática se ha validado correctamente: \r\n" + gramatica.Replace(";", "\r\n");
+
             }
             Token[] entradas = entrada.ToArray();
             //Lexico todo bien
@@ -77,14 +78,38 @@ namespace ParserApplication {
             //parser todo bien
             // ingresar al lalr
             Rules concatenartokens = new Rules(entradas);
+            Graph Grafo = new Graph(concatenartokens.Reglas);
+            Grafo.BuildGraph();
+            
         }
 
-        public string getGramatica () {
+        public string getGramatica() {
             return this.gramatica;
         }
 
-        private void btnAnalysis_Click ( object sender, EventArgs e ) {
+        private void btnAnalysis_Click(object sender, EventArgs e) {
             string value = txtAnalysis.Text;
+        }
+
+
+        private void txtResult_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void Parser_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

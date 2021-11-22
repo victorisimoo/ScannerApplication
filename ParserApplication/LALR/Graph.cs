@@ -9,7 +9,7 @@ namespace ParserApplication.LALR
 {
     class Graph
     {
-        private List<TableItem> Grafo = new List<TableItem>();
+        public List<TableItem> Grafo = new List<TableItem>();
         private List<ListadeTokens> _rulelist = new List<ListadeTokens>();
         private List<Token> first = new List<Token>();
         private FirstFollow firstfollow = new FirstFollow();
