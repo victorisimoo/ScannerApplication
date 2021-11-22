@@ -85,13 +85,15 @@ namespace ParserApplication.LALR
             BuildTable();
             foreach (var item in ListofFirst)
             {
-                List<string> Firstlist = new List<string>();
-                Firstlist.AddRange(First(item.token.Value));
+                First(item.token.Value);
             }
             foreach (var item in ListofFollow)
+            { 
+                Follow(item.token.Value);
+            }
+            foreach (var item in Grafo)
             {
-                List<string> Firstlist = new List<string>();
-                Firstlist.AddRange(Follow(item.token.Value));
+                item.SetLookAheads(ListofFollow);
             }
         }
         public TokenType Match(string value) {
@@ -249,10 +251,7 @@ namespace ParserApplication.LALR
                         }
                         else
                         {
-                            if (!Toadd.Contains("$"))
-                            {
-                                Toadd.Add("$");
-                            }
+                            Toadd.AddRange(Follow(item.identifier));
                         }  
                     }
                 }
@@ -285,7 +284,7 @@ namespace ParserApplication.LALR
             {
                 if (id == item.identifier)
                 {
-                    Toadd.Add(item); 
+                    Toadd.Add(new ListadeTokens(item,true)); 
                 }
             }
             return Toadd;

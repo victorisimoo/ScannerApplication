@@ -14,6 +14,16 @@ namespace ParserApplication.LALR
         public string identifier = "";
         public string regla = "";
         public int pos = 0;
+        public List<string> Lookaheads = new List<string>();
+
+        public ListadeTokens(ListadeTokens Kernel,bool check)
+        {
+            listas = Kernel.listas;
+            idRule = Kernel.idRule;
+            identifier = Kernel.identifier;
+            regla = Kernel.regla;
+            pos = 0;
+        }
         public ListadeTokens(ListadeTokens Kernel) {
             listas = Kernel.listas;
             idRule = Kernel.idRule;
