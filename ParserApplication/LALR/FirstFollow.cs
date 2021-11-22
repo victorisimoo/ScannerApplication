@@ -7,12 +7,12 @@ using ParserApplication.TokenConstruction;
 
 namespace ParserApplication.LALR
 {
-    public class First
+    public class FirstFollow
     {
        public Token token;
-       public List<string> listafirst;
+       public List<string> lista;
 
-        public First()
+        public FirstFollow()
         { }
 
     }

@@ -12,8 +12,10 @@ namespace ParserApplication.LALR
         private List<TableItem> Grafo = new List<TableItem>();
         private List<ListadeTokens> _rulelist = new List<ListadeTokens>();
         private List<Token> first = new List<Token>();
-        private First firsts = new First();
-        private List<First> ListofFirst = new List<First>();
+        private FirstFollow firstfollow = new FirstFollow();
+        private List<Token> follow = new List<Token>();
+        private List<FirstFollow> ListofFirst = new List<FirstFollow>();
+        private List<FirstFollow> ListofFollow = new List<FirstFollow>();
         int estado=0;
 
         public Graph(List<ListadeTokens> rules) {
@@ -23,9 +25,10 @@ namespace ParserApplication.LALR
                 if (!first.Contains(rules[i].idRule))
                 {
                     first.Add(rules[i].idRule);
-                    firsts = new First();
-                    firsts.token = rules[i].idRule;
-                    ListofFirst.Add(firsts);
+                    firstfollow = new FirstFollow();
+                    firstfollow.token = rules[i].idRule;
+                    ListofFirst.Add(firstfollow);
+                    ListofFollow.Add(firstfollow);
                 }
             }
 
@@ -84,6 +87,11 @@ namespace ParserApplication.LALR
             {
                 List<string> Firstlist = new List<string>();
                 Firstlist.AddRange(First(item.identifier));
+            }
+            foreach (var item in ListofFirst)
+            {
+                List<string> Firstlist = new List<string>();
+                Firstlist.AddRange(Follow(item.token.Value));
             }
         }
         public TokenType Match(string value) {
@@ -202,11 +210,62 @@ namespace ParserApplication.LALR
                     index = ListofFirst.IndexOf(item);
                 }
             }
-            ListofFirst[index].listafirst = Toadd;
+            ListofFirst[index].lista = Toadd;
             return Toadd;
         }
-            
-        
+
+        public List<string> Follow(string id)
+        {
+            List<string> Toadd = new List<string>();
+            foreach (var item in _rulelist)
+            {
+                for (int i = 0; i < item.listas.Count; i++)
+                {
+                    if (id == item.listas[i].Value)
+                    {
+                        if (i + 1 < item.listas.Count)
+                        {
+                            if (item.listas[i + 1].Tag == TokenType.term)
+                            {
+                                Toadd.Add(item.listas[i + 1].Value);
+                            }
+                            else if (item.listas[i + 1].Tag == TokenType.id)
+                            {
+                                foreach (var items in ListofFirst)
+                                {
+                                    if (items.token.Value == item.listas[i + 1].Value)
+                                    {
+                                        Toadd.Add(items.lista[i + 1]);
+                                    }
+
+                                }
+
+                            }
+                            else
+                            {
+                                Toadd.Add("$");
+                            }
+                        }
+                        else
+                        {
+                            Toadd.Add("$");
+                        }  
+                    }
+                }
+            }
+            int index = 0;
+            foreach (var item in ListofFollow)
+            {
+                if (item.token.Value == id)
+                {
+                    index = ListofFollow.IndexOf(item);
+                }
+            }
+            ListofFollow[index].lista = Toadd;
+            return Toadd;
+        }
+
+
         public List<ListadeTokens> GetRuleId(string id) {
             List<ListadeTokens> Toadd = new List<ListadeTokens>();
             foreach (var item in _rulelist)

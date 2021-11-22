@@ -83,7 +83,7 @@
     <Compile Include="LALR\Graph.cs" />
     <Compile Include="LALR\ListadeTokens.cs" />
     <Compile Include="LALR\Rules.cs" />
-    <Compile Include="LALR\First.cs" />
+    <Compile Include="LALR\FirstFollow.cs" />
     <Compile Include="LALR\TableItem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
