@@ -33,5 +33,8 @@ namespace ParserApplication.LALR
                 regla = regla + item.Value + " ";
             }
         }
+
+        public ListadeTokens()
+        { }
     }
 }

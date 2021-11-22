@@ -10,7 +10,7 @@ namespace ParserApplication.LALR
     public class First
     {
        public Token token;
-       public List<Token> listafirst;
+       public List<string> listafirst;
 
         public First()
         { }

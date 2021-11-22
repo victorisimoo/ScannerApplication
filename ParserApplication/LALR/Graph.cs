@@ -12,6 +12,8 @@ namespace ParserApplication.LALR
         private List<TableItem> Grafo = new List<TableItem>();
         private List<ListadeTokens> _rulelist = new List<ListadeTokens>();
         private List<Token> first = new List<Token>();
+        private First firsts = new First();
+        private List<First> ListofFirst = new List<First>();
         int estado=0;
 
         public Graph(List<ListadeTokens> rules) {
@@ -21,6 +23,9 @@ namespace ParserApplication.LALR
                 if (!first.Contains(rules[i].idRule))
                 {
                     first.Add(rules[i].idRule);
+                    firsts = new First();
+                    firsts.token = rules[i].idRule;
+                    ListofFirst.Add(firsts);
                 }
             }
 
@@ -172,21 +177,32 @@ namespace ParserApplication.LALR
             List<string> Toadd = new List<string>();
             foreach (var item in _rulelist)
             {
-                    if (id == item.identifier)
-                    {
-                        if (id != item.listas[0].Value)
-                        { 
-                            if (item.listas[0].Tag == TokenType.term)
-                            {
-                                Toadd.Add(item.listas[0].Value);
-                            }
-                             else if (item.listas[0].Tag == TokenType.id)
-                             { 
-                                 Toadd.AddRange(First(item.listas[0].Value));
-                             }
+                if (id == item.identifier)
+                {
+                    
+                    if (id != item.listas[0].Value)
+                    { 
+                        if (item.listas[0].Tag == TokenType.term)
+                        {
+                            Toadd.Add(item.listas[0].Value);
                         }
+                            else if (item.listas[0].Tag == TokenType.id)
+                            { 
+                                
+                                Toadd.AddRange(First(item.listas[0].Value));
+                            }
                     }
                 }
+            }
+            int index = 0;
+            foreach (var item in ListofFirst)
+            {
+                if (item.token.Value == id)
+                {
+                    index = ListofFirst.IndexOf(item);
+                }
+            }
+            ListofFirst[index].listafirst = Toadd;
             return Toadd;
         }
             
