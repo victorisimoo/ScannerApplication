@@ -11,9 +11,19 @@ namespace ParserApplication.LALR
     {
         private List<TableItem> Grafo = new List<TableItem>();
         private List<ListadeTokens> _rulelist = new List<ListadeTokens>();
+        private List<Token> first = new List<Token>();
         int estado=0;
+
         public Graph(List<ListadeTokens> rules) {
             _rulelist = rules;
+            for (int i = 0; i < rules.Count; i++)
+            {
+                if (!first.Contains(rules[i].idRule))
+                {
+                    first.Add(rules[i].idRule);
+                }
+            }
+
         }
 
         public void BuildGraph()
