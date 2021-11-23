@@ -88,7 +88,8 @@ namespace ParserApplication {
         }
 
         private void btnAnalysis_Click(object sender, EventArgs e) {
-            string value = txtAnalysis.Text;
+            string value = "'" + txtAnalysis.Text + "'";
+            value = value.Replace(" ", "' '");
             Queue<Token> entrada = new Queue<Token>();
             Scanner scanner = new Scanner(value);
             Token nextToken;
@@ -97,18 +98,17 @@ namespace ParserApplication {
                 nextToken = scanner.GetToken();
                 entrada.Enqueue(nextToken);
             } while (nextToken.Tag != TokenType.EOF);
+            //EN ENTRADA SE ENCUENTRAN LOS TOKENS PARA PARSEO
             if (scanner.getErrorResult())
             {
 
                 lblAnalysisResult.ForeColor = System.Drawing.Color.Red;
                 lblAnalysisResult.Text = "INCORRECTO";
-
             }
             else
             {
                 lblAnalysisResult.ForeColor = System.Drawing.Color.Green;
                 lblAnalysisResult.Text = "CORRECTO";
-
             }
 
         }
