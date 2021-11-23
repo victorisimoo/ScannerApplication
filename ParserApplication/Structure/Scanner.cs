@@ -30,6 +30,7 @@ public class Scanner {
         return this.error;
     }
 
+
     // a un token se le asocia un valor y un nombre, por lo tanto 2 campos que devuelve un tipo de dato
     public Token GetToken () {
         Token result = new Token() { Value = "" };//vacio inicia
