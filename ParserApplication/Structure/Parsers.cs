@@ -48,9 +48,39 @@ namespace ParserApplication.TokenConstruction {
                         Start(estadoactual, true);
                     }
                     else {
-                    
+                        if (ParsingTable[pos].Shifts.ContainsKey(entrada.Peek().Value))
+                        {
+                            pilaT.Push(entrada.Dequeue());
+                            pilaE2.Push(ParsingTable[pos].Shifts[pilaT.Peek().Value]);
+                            Start(pilaE2.Peek(), false);
+                        }
+                        else if (ParsingTable[pos].Reduce.ContainsKey(entrada.Peek().Value))
+                        {
+                            ListadeTokens LoadRule = new ListadeTokens(ParsingTable[pos].Reduce[entrada.Peek().Value], false);
+                            while (LoadRule.pos > 0)
+                            {
+                                if (LoadRule.listas[LoadRule.pos - 1].Value == pilaT.Peek().Value)
+                                {
+                                    pilaT.Pop();
+                                    pilaE2.Pop();
+                                }
+                                else
+                                {
+                                    throw new Exception("Syntax Error");
+                                }
+
+                                LoadRule.pos--;
+                            }
+                            pilaT.Push(new Token() { Value = LoadRule.identifier, Tag = TokenType.id });
+                            Start(pilaE2.Peek(), false);
+                        }
+                        else
+                        {
+                            throw new Exception("Syntax Error");
+                        }
                     }
-                } else if (ParsingTable[pos].Shifts.ContainsKey(entrada.Peek().Value))
+                } 
+                else if (ParsingTable[pos].Shifts.ContainsKey(entrada.Peek().Value))
                 {
                     pilaT.Push(entrada.Dequeue());
                     pilaE2.Push(ParsingTable[pos].Shifts[pilaT.Peek().Value]);
