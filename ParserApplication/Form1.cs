@@ -15,6 +15,8 @@ namespace ParserApplication {
         public List<TableItem> Tablalista;
         public string gramatica = "";
         private void btnFileSelect_Click(object sender, EventArgs e) {
+            datagridshift.Rows.Clear();
+            datagridgoto.Rows.Clear();
             var openFileDialog = new OpenFileDialog() {
                 Filter = "Text files (*.y)|*.y",
                 Title = "ArchivoSeleccionado"
@@ -40,6 +42,7 @@ namespace ParserApplication {
                 MessageBox.Show("Se han encontrado un error en el análisis de la gramática",
                         "¡Error encontrado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            
         }
 
         private void grammarAnalyzer(Stream fileStream, string fileName) {
@@ -50,7 +53,7 @@ namespace ParserApplication {
                     gramaticaCompleta = gramaticaCompleta + line;
                 }
                 gramatica = gramaticaCompleta;
-                labelmostrar.Text = gramaticaCompleta.Replace(";", "\r\n");
+                //labelmostrar.Text = gramaticaCompleta.Replace(";", "\r\n");
             }
 
             Queue<Token> entrada = new Queue<Token>();
@@ -81,6 +84,24 @@ namespace ParserApplication {
             Graph Grafo = new Graph(concatenartokens.Reglas);
             Grafo.BuildGraph();
             Tablalista = Grafo.Grafo;
+
+            foreach (var item in Grafo.getGrafo())
+            {
+                if (item.Shifts.Count > 0)
+                {
+                    foreach (KeyValuePair<string, int> entry in item.Shifts)
+                    {
+                        datagridshift.Rows.Add("[" + entry.Key + " , " + entry.Value + "]");
+                    }
+                }
+                if (item.Gotos.Count > 0)
+                {
+                    foreach (KeyValuePair<string, int> entry in item.Gotos)
+                    {
+                        datagridgoto.Rows.Add("[" + entry.Key + " , " + entry.Value + "]");
+                    }
+                }
+            }
 
         }
 
