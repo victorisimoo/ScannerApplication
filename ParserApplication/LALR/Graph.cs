@@ -36,7 +36,7 @@ namespace ParserApplication.LALR
 
         public void BuildGraph()
         {
-            _rulelist[0].listas.Add(new Token { Value = "", Tag = TokenType.EOF });
+            _rulelist[0].listas.Add(new Token { Value = "$", Tag = TokenType.EOF });
 
             //primer valor
             string kernel = _rulelist[0].regla;
@@ -95,6 +95,10 @@ namespace ParserApplication.LALR
             {
                 item.SetLookAheads(ListofFollow);
             }
+            foreach (var item in Grafo)
+            {
+                item.SetReduce();
+            }
         }
         public TokenType Match(string value) {
             foreach (var item in _rulelist)
@@ -119,6 +123,9 @@ namespace ParserApplication.LALR
                         }
                         else if (Grafo[j].Typesent == TokenType.term)
                         {
+                            Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
+                        }
+                        else if (Grafo[j].Typesent == TokenType.EOF) {
                             Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
                         }
                     }

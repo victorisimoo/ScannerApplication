@@ -78,9 +78,13 @@ public class Scanner {
                         case (char)TokenType.puntoycoma:
                         case (char)TokenType.igual:
                         case (char)TokenType.or:
+                            tokenFound = true;
+                            result.Tag = (TokenType)peek;
+                            break;
                         case (char)TokenType.EOF:
                             tokenFound = true;
                             result.Tag = (TokenType)peek;
+                            result.Value = "$";
                             break;
                         default:
                             if (char.IsLetter(peek) || peek == '_') {

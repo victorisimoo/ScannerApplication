@@ -12,7 +12,7 @@ namespace ParserApplication {
             InitializeComponent();
             txtFile.Enabled = false;
         }
-
+        public List<TableItem> Tablalista;
         public string gramatica = "";
         private void btnFileSelect_Click(object sender, EventArgs e) {
             var openFileDialog = new OpenFileDialog() {
@@ -80,7 +80,8 @@ namespace ParserApplication {
             Rules concatenartokens = new Rules(entradas);
             Graph Grafo = new Graph(concatenartokens.Reglas);
             Grafo.BuildGraph();
-            
+            Tablalista = Grafo.Grafo;
+
         }
 
         public string getGramatica() {
@@ -98,6 +99,10 @@ namespace ParserApplication {
                 nextToken = scanner.GetToken();
                 entrada.Enqueue(nextToken);
             } while (nextToken.Tag != TokenType.EOF);
+            
+            Parsers GramaticaEspecifica = new Parsers(entrada,Tablalista);
+            GramaticaEspecifica.Parse3();
+
             //EN ENTRADA SE ENCUENTRAN LOS TOKENS PARA PARSEO
             if (scanner.getErrorResult())
             {
