@@ -80,6 +80,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="LALR\FoundPacket.cs" />
     <Compile Include="LALR\Graph.cs" />
     <Compile Include="LALR\ListadeTokens.cs" />
     <Compile Include="LALR\Rules.cs" />

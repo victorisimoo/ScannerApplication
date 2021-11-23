@@ -120,14 +120,17 @@ namespace ParserApplication.LALR
                     if (Grafo[j].comingfrom == i) {
                         if (Grafo[j].Typesent == TokenType.id)
                         {
-                            Grafo[i].Gotos.Add(Grafo[j].valuesent, j);
+                            if(!Grafo[i].Gotos.ContainsKey(Grafo[j].valuesent))
+                                Grafo[i].Gotos.Add(Grafo[j].valuesent, j);
                         }
                         else if (Grafo[j].Typesent == TokenType.term)
                         {
-                            Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
+                            if (!Grafo[i].Shifts.ContainsKey(Grafo[j].valuesent))
+                                    Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
                         }
                         else if (Grafo[j].Typesent == TokenType.EOF) {
-                            Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
+                            if (!Grafo[i].Shifts.ContainsKey(Grafo[j].valuesent))
+                                Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
                         }
                     }
                 }
@@ -158,29 +161,89 @@ namespace ParserApplication.LALR
                     }
 
                 }
-                Grafo.Add(new TableItem(Production, consumed, earlierstate, consumedType));
-                int estadoactual = estado;
-                estado++;
-                Dictionary<string, List<ListadeTokens>> Parejas = new Dictionary<string, List<ListadeTokens>>();
-                foreach (var item in Grafo [estado - 1].EstadoProduction) {
+                //Check if ya existe
+                FoundPacket result=CheckExists(Production);
+                if (result.found)
+                {
+                    if (result.typesent == TokenType.id)
+                    {
+                        if(!Grafo[earlierstate].Gotos.ContainsKey(result.valuesent))
+                            Grafo[earlierstate].Gotos.Add(result.valuesent, result.actual);
+                    }
+                    else if (result.typesent == TokenType.term || result.typesent == TokenType.EOF) {
+                        if (!Grafo[earlierstate].Shifts.ContainsKey(result.valuesent))
+                            Grafo[earlierstate].Shifts.Add(result.valuesent, result.actual);
+                    }
+                    
+                }
+                else {
+                    Grafo.Add(new TableItem(Production, consumed, earlierstate, consumedType));
+                    int estadoactual = estado;
+                    estado++;
+                    Dictionary<string, List<ListadeTokens>> Parejas = new Dictionary<string, List<ListadeTokens>>();
+                    foreach (var item in Grafo[estado - 1].EstadoProduction)
+                    {
 
-                    if (item.pos < item.listas.Count) {
-                        if (Parejas.ContainsKey(item.listas [item.pos].Value)) {
-                            Parejas [item.listas [item.pos].Value].Add(item);
-                        } else {
-                            Parejas.Add(item.listas [item.pos].Value, new List<ListadeTokens>());
-                            Parejas [item.listas [item.pos].Value].Add(item);
+                        if (item.pos < item.listas.Count)
+                        {
+                            if (Parejas.ContainsKey(item.listas[item.pos].Value))
+                            {
+                                Parejas[item.listas[item.pos].Value].Add(item);
+                            }
+                            else
+                            {
+                                Parejas.Add(item.listas[item.pos].Value, new List<ListadeTokens>());
+                                Parejas[item.listas[item.pos].Value].Add(item);
+                            }
                         }
+                    }
+
+                    foreach (var item in Parejas)
+                    {
+                        BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
                     }
                 }
 
-                foreach (var item in Parejas) {
-                    BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
-                }
+                
             }catch (Exception) {
+
                 MessageBox.Show("Se ha producido un error en el procesamiento de la gramática",
                         "¡Error encontrado: BuildNode!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        public FoundPacket CheckExists(List<ListadeTokens> aComparar) {
+            bool valor = false;
+            int contador = 0;
+            foreach (var item in Grafo) {
+                valor = Comparar(aComparar,item.EstadoProduction);
+                if (valor)
+                    return new FoundPacket(true,item.valuesent,item.comingfrom,contador,item.Typesent);
+                contador++;
+            }
+            return new FoundPacket(false, "", -1,-1,TokenType.Empty);
+        }
+
+        public bool Comparar(List<ListadeTokens> lista1, List<ListadeTokens> lista2) {
+            bool igual = true;
+            if (lista1.Count == lista2.Count)
+            {
+                for (int i = 0; i < lista1.Count; i++)
+                {
+                    if (lista1[i].identifier == lista2[i].identifier && lista1[i].pos == lista2[i].pos && lista1[i].regla == lista2[i].regla)
+                    {
+                        igual = igual && igual;
+                    }
+                    else {
+                        igual = false;
+                    }
+                }
+                return igual;
+            }
+            else {
+                return false;
+            }
+            
         }
 
         public List<string> First(string id) {
@@ -236,7 +299,7 @@ namespace ParserApplication.LALR
                                 {
                                     if (items.token.Value == item.listas[i + 1].Value)
                                     {
-                                        Toadd.Add(items.lista[i + 1]);
+                                        Toadd.AddRange(items.lista);
                                     }
                                 }
                             }
@@ -251,7 +314,10 @@ namespace ParserApplication.LALR
                         }
                         else
                         {
-                            Toadd.AddRange(Follow(item.identifier));
+                            if (id != item.identifier) {
+                                Toadd.AddRange(Follow(item.identifier));
+                            }
+                            
                         }  
                     }
                 }

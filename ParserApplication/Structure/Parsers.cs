@@ -28,10 +28,10 @@ namespace ParserApplication.TokenConstruction {
             int estadoactual = 0;
             pilaE2.Push(estadoactual);
             pilaT.Push(new Token() { Value = "inicio", Tag = TokenType.inicial });
-            Start(estadoactual);
+            Start(estadoactual,false);
         }
 
-        private void Start(int pos) {
+        private void Start(int pos,bool justgoto) {
             int estadoactual = 0;
             if (ParsingTable[pos].Accept)
             {
@@ -41,15 +41,20 @@ namespace ParserApplication.TokenConstruction {
             {
                 if (ParsingTable[pos].Gotos.ContainsKey(pilaT.Peek().Value))
                 {
-                    estadoactual = ParsingTable[pos].Gotos[pilaT.Peek().Value];
-                    pilaE2.Push(estadoactual);
-                    Start(estadoactual);
-                }
-                else if (ParsingTable[pos].Shifts.ContainsKey(entrada.Peek().Value))
+                    if (!justgoto)
+                    {
+                        estadoactual = ParsingTable[pos].Gotos[pilaT.Peek().Value];
+                        pilaE2.Push(estadoactual);
+                        Start(estadoactual, true);
+                    }
+                    else {
+                    
+                    }
+                } else if (ParsingTable[pos].Shifts.ContainsKey(entrada.Peek().Value))
                 {
                     pilaT.Push(entrada.Dequeue());
                     pilaE2.Push(ParsingTable[pos].Shifts[pilaT.Peek().Value]);
-                    Start(pilaE2.Peek());
+                    Start(pilaE2.Peek(), false);
                 }
                 else if (ParsingTable[pos].Reduce.ContainsKey(entrada.Peek().Value))
                 {
@@ -65,11 +70,11 @@ namespace ParserApplication.TokenConstruction {
                         {
                             throw new Exception("Syntax Error");
                         }
-                        
+
                         LoadRule.pos--;
                     }
                     pilaT.Push(new Token() { Value = LoadRule.identifier, Tag = TokenType.id });
-                    Start(pilaE2.Peek());
+                    Start(pilaE2.Peek(), false);
                 }
                 else
                 {
