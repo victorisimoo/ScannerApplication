@@ -24,7 +24,7 @@ namespace ParserApplication {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent () {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.btnFileSelect = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -79,6 +79,7 @@ namespace ParserApplication {
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(402, 64);
             this.panel1.TabIndex = 3;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // lblGramatica
             // 
@@ -165,9 +166,8 @@ namespace ParserApplication {
             this.lblAnalysisResult.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnalysisResult.Location = new System.Drawing.Point(87, 53);
             this.lblAnalysisResult.Name = "lblAnalysisResult";
-            this.lblAnalysisResult.Size = new System.Drawing.Size(55, 17);
+            this.lblAnalysisResult.Size = new System.Drawing.Size(0, 17);
             this.lblAnalysisResult.TabIndex = 10;
-            this.lblAnalysisResult.Text = "Correcto";
             // 
             // label6
             // 
@@ -209,8 +209,8 @@ namespace ParserApplication {
             // 
             this.datagridshift.AllowUserToResizeColumns = false;
             this.datagridshift.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.datagridshift.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.datagridshift.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.datagridshift.BackgroundColor = System.Drawing.Color.White;
             this.datagridshift.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.datagridshift.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;

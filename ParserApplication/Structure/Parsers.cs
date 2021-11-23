@@ -1,19 +1,83 @@
 ﻿using ParserApplication.Structure;
 using System;
 using System.Collections.Generic;
+using ParserApplication.LALR;
 
 namespace ParserApplication.TokenConstruction {
     public class Parsers {
         Scanner scanner;
         Token token;
+        List<TableItem> ParsingTable;
         Stack<Token> pilaT = new Stack<Token>();
         Stack<State> pilaE = new Stack<State>();
+        Stack<int> pilaE2 = new Stack<int>();
         Queue<Token> entrada = new Queue<Token>();
 
         public Parsers(Queue<Token> entradas)
         {
             entrada = entradas;
         }
+
+        public Parsers(Queue<Token> entradas, List<TableItem> Tabla)
+        {
+            entrada = entradas;
+            ParsingTable = new List<TableItem>(Tabla);
+        }
+
+        public void Parse3() {
+            int estadoactual = 0;
+            pilaE2.Push(estadoactual);
+            pilaT.Push(new Token() { Value = "inicio", Tag = TokenType.inicial });
+            Start(estadoactual);
+        }
+
+        private void Start(int pos) {
+            int estadoactual = 0;
+            if (ParsingTable[pos].Accept)
+            {
+
+            }
+            else
+            {
+                if (ParsingTable[pos].Gotos.ContainsKey(pilaT.Peek().Value))
+                {
+                    estadoactual = ParsingTable[pos].Gotos[pilaT.Peek().Value];
+                    pilaE2.Push(estadoactual);
+                    Start(estadoactual);
+                }
+                else if (ParsingTable[pos].Shifts.ContainsKey(entrada.Peek().Value))
+                {
+                    pilaT.Push(entrada.Dequeue());
+                    pilaE2.Push(ParsingTable[pos].Shifts[pilaT.Peek().Value]);
+                    Start(pilaE2.Peek());
+                }
+                else if (ParsingTable[pos].Reduce.ContainsKey(entrada.Peek().Value))
+                {
+                    ListadeTokens LoadRule = new ListadeTokens(ParsingTable[pos].Reduce[entrada.Peek().Value], false);
+                    while (LoadRule.pos > 0)
+                    {
+                        if (LoadRule.listas[LoadRule.pos - 1].Value == pilaT.Peek().Value)
+                        {
+                            pilaT.Pop();
+                            pilaE2.Pop();
+                        }
+                        else
+                        {
+                            throw new Exception("Syntax Error");
+                        }
+                        
+                        LoadRule.pos--;
+                    }
+                    pilaT.Push(new Token() { Value = LoadRule.identifier, Tag = TokenType.id });
+                    Start(pilaE2.Peek());
+                }
+                else
+                {
+                    throw new Exception("Syntax Error");
+                }
+            }
+        }
+
         void ReduceRule(int regla)
         {
             switch (regla)
@@ -128,32 +192,32 @@ namespace ParserApplication.TokenConstruction {
             }
         }
 
-        private void Match(TokenType tag)
-        {
-            if (tag != TokenType.EOF)
-            {
-                if (token.Tag == tag)
-                {
-                    token = scanner.GetToken();
-                }
-                else
-                {
-                    throw new Exception("Syntax Error");
-                }
-            }
-            else
-            {
-                if (token.Tag == tag)
-                {
-                }
-                else
-                {
-                    throw new Exception("Syntax Error");
-                }
+        //private void Match(TokenType tag)
+        //{
+        //    if (tag != TokenType.EOF)
+        //    {
+        //        if (token.Tag == tag)
+        //        {
+        //            token = scanner.GetToken();
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Syntax Error");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (token.Tag == tag)
+        //        {
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("Syntax Error");
+        //        }
 
-            }
+        //    }
 
-        }
+        //}
         private void I13() {
             switch (entrada.Peek().Tag)
             {

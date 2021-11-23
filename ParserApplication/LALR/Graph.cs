@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using ParserApplication.TokenConstruction;
 
 namespace ParserApplication.LALR
@@ -36,7 +38,7 @@ namespace ParserApplication.LALR
 
         public void BuildGraph()
         {
-            _rulelist[0].listas.Add(new Token { Value = "", Tag = TokenType.EOF });
+            _rulelist[0].listas.Add(new Token { Value = "$", Tag = TokenType.EOF });
 
             //primer valor
             string kernel = _rulelist[0].regla;
@@ -94,6 +96,10 @@ namespace ParserApplication.LALR
             foreach (var item in Grafo) {
                 item.SetLookAheads(ListofFollow);
             }
+            foreach (var item in Grafo)
+            {
+                item.SetReduce();
+            }
         }
         public TokenType Match(string value) {
             foreach (var item in _rulelist)
@@ -120,65 +126,60 @@ namespace ParserApplication.LALR
                         {
                             Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
                         }
+                        else if (Grafo[j].Typesent == TokenType.EOF) {
+                            Grafo[i].Shifts.Add(Grafo[j].valuesent, j);
+                        }
                     }
                 }
             }
         }
         public void BuildNode(List<ListadeTokens> Kernel,int earlierstate,string consumed,TokenType consumedType) {
-            List<ListadeTokens> Production = new List<ListadeTokens>();
-            foreach (var item in Kernel)
-            {
-                Production.Add(new ListadeTokens(item));
-            }
-            //Production.AddRange(Kernel);
-            List<string> used = new List<string>();
-            
-            for (int i = 0; i < Production.Count; i++)
-            {
-                if (Production[i].listas.Count > Production[i].pos)
-                {
-                    if (Production[i].listas[Production[i].pos].Tag == TokenType.id)
-                    {
-                        if (!used.Contains(Production[i].listas[Production[i].pos].Value))
-                        {
-                            used.Add(Production[i].listas[Production[i].pos].Value);
-                            Production.AddRange(GetRuleId(Production[i].listas[Production[i].pos].Value));
+            try {
+                List<ListadeTokens> Production = new List<ListadeTokens>();
+                foreach (var item in Kernel) {
+                    Production.Add(new ListadeTokens(item));
+                }
+                //Production.AddRange(Kernel);
+                List<string> used = new List<string>();
+
+                for (int i = 0; i < Production.Count; i++) {
+                    if (Production [i].listas.Count > Production [i].pos) {
+                        if (Production [i].listas [Production [i].pos].Tag == TokenType.id) {
+                            if (!used.Contains(Production [i].listas [Production [i].pos].Value)) {
+                                used.Add(Production [i].listas [Production [i].pos].Value);
+                                Production.AddRange(GetRuleId(Production [i].listas [Production [i].pos].Value));
+                            }
+
+                        } else {
+                            //No hacer nada por ahora
                         }
-
+                    } else {
+                        //Generar Reduce
                     }
-                    else
-                    {
-                        //No hacer nada por ahora
+
+                }
+                Grafo.Add(new TableItem(Production, consumed, earlierstate, consumedType));
+                int estadoactual = estado;
+                estado++;
+                Dictionary<string, List<ListadeTokens>> Parejas = new Dictionary<string, List<ListadeTokens>>();
+                foreach (var item in Grafo [estado - 1].EstadoProduction) {
+
+                    if (item.pos < item.listas.Count) {
+                        if (Parejas.ContainsKey(item.listas [item.pos].Value)) {
+                            Parejas [item.listas [item.pos].Value].Add(item);
+                        } else {
+                            Parejas.Add(item.listas [item.pos].Value, new List<ListadeTokens>());
+                            Parejas [item.listas [item.pos].Value].Add(item);
+                        }
                     }
                 }
-                else {
-                    //Generar Reduce
-                }
-                
-            }
-            Grafo.Add(new TableItem(Production, consumed,earlierstate,consumedType));
-            int estadoactual = estado;
-            estado++;
-            Dictionary<string, List<ListadeTokens>> Parejas = new Dictionary<string, List<ListadeTokens>>();
-            foreach (var item in Grafo[estado-1].EstadoProduction)
-            {
 
-                if (item.pos < item.listas.Count) {
-                    if (Parejas.ContainsKey(item.listas[item.pos].Value))
-                    {
-                        Parejas[item.listas[item.pos].Value].Add(item);
-                    }
-                    else
-                    {
-                        Parejas.Add(item.listas[item.pos].Value, new List<ListadeTokens>());
-                        Parejas[item.listas[item.pos].Value].Add(item);
-                    }
+                foreach (var item in Parejas) {
+                    BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
                 }
-            }
-
-            foreach (var item in Parejas)
-            {
-                BuildNode(item.Value, estadoactual, item.Key, Match(item.Key));
+            }catch (Exception) {
+                MessageBox.Show("Se ha producido un error en el procesamiento de la gramática",
+                        "¡Error encontrado: BuildNode!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
