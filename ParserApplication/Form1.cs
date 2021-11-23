@@ -11,10 +11,14 @@ namespace ParserApplication {
         public Parser() {
             InitializeComponent();
             txtFile.Enabled = false;
+            txtAnalysis.Enabled = false;
+            btnAnalysis.Enabled = false;
         }
-
+        public List<TableItem> Tablalista;
         public string gramatica = "";
         private void btnFileSelect_Click(object sender, EventArgs e) {
+            datagridshift.Rows.Clear();
+            datagridgoto.Rows.Clear();
             var openFileDialog = new OpenFileDialog() {
                 Filter = "Text files (*.y)|*.y",
                 Title = "ArchivoSeleccionado"
@@ -40,6 +44,7 @@ namespace ParserApplication {
                 MessageBox.Show("Se han encontrado un error en el análisis de la gramática",
                         "¡Error encontrado!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            
         }
 
         private void grammarAnalyzer(Stream fileStream, string fileName) {
@@ -50,7 +55,8 @@ namespace ParserApplication {
                     gramaticaCompleta = gramaticaCompleta + line;
                 }
                 gramatica = gramaticaCompleta;
-                labelmostrar.Text = gramaticaCompleta.Replace(";", "\r\n");
+                txtAnalysis.Enabled = true;
+                btnAnalysis.Enabled = true;
             }
 
             Queue<Token> entrada = new Queue<Token>();
@@ -80,7 +86,26 @@ namespace ParserApplication {
             Rules concatenartokens = new Rules(entradas);
             Graph Grafo = new Graph(concatenartokens.Reglas);
             Grafo.BuildGraph();
-            
+            Tablalista = Grafo.Grafo;
+
+            foreach (var item in Grafo.getGrafo())
+            {
+                if (item.Shifts.Count > 0)
+                {
+                    foreach (KeyValuePair<string, int> entry in item.Shifts)
+                    {
+                        datagridshift.Rows.Add("[" + entry.Key + " , " + entry.Value + "]");
+                    }
+                }
+                if (item.Gotos.Count > 0)
+                {
+                    foreach (KeyValuePair<string, int> entry in item.Gotos)
+                    {
+                        datagridgoto.Rows.Add("[" + entry.Key + " , " + entry.Value + "]");
+                    }
+                }
+            }
+
         }
 
         public string getGramatica() {
@@ -98,15 +123,23 @@ namespace ParserApplication {
                 nextToken = scanner.GetToken();
                 entrada.Enqueue(nextToken);
             } while (nextToken.Tag != TokenType.EOF);
-            //EN ENTRADA SE ENCUENTRAN LOS TOKENS PARA PARSEO
-            if (scanner.getErrorResult())
-            {
+            
+            Parsers GramaticaEspecifica = new Parsers(entrada,Tablalista);
+            try {
+                GramaticaEspecifica.Parse3();
+            }catch (Exception) {
+                txtAnalysis.Text = "";
+                scanner.setErrorScanner(true);
+                MessageBox.Show("La cadena ingresada no es aceptada por la gramática",
+                        "¡Cadena erronea!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
 
+            //EN ENTRADA SE ENCUENTRAN LOS TOKENS PARA PARSEO
+            if (scanner.getErrorResult()) {
                 lblAnalysisResult.ForeColor = System.Drawing.Color.Red;
                 lblAnalysisResult.Text = "INCORRECTO";
-            }
-            else
-            {
+            } else {
                 lblAnalysisResult.ForeColor = System.Drawing.Color.Green;
                 lblAnalysisResult.Text = "CORRECTO";
             }
@@ -131,6 +164,10 @@ namespace ParserApplication {
 
         private void Parser_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void panel1_Paint ( object sender, PaintEventArgs e ) {
 
         }
     }
