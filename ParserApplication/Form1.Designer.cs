@@ -24,11 +24,11 @@ namespace ParserApplication {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent () {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.btnFileSelect = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblGramatica = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -41,9 +41,15 @@ namespace ParserApplication {
             this.label7 = new System.Windows.Forms.Label();
             this.txtAnalysis = new System.Windows.Forms.TextBox();
             this.btnAnalysis = new System.Windows.Forms.Button();
+            this.datagridshift = new System.Windows.Forms.DataGridView();
+            this.Shift = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datagridgoto = new System.Windows.Forms.DataGridView();
+            this.Goto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridshift)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridgoto)).BeginInit();
             this.SuspendLayout();
             // 
             // txtFile
@@ -67,12 +73,11 @@ namespace ParserApplication {
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblGramatica);
-            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.txtFile);
             this.panel1.Controls.Add(this.btnFileSelect);
             this.panel1.Location = new System.Drawing.Point(12, 74);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(402, 80);
+            this.panel1.Size = new System.Drawing.Size(402, 64);
             this.panel1.TabIndex = 3;
             // 
             // lblGramatica
@@ -83,16 +88,6 @@ namespace ParserApplication {
             this.lblGramatica.Name = "lblGramatica";
             this.lblGramatica.Size = new System.Drawing.Size(0, 17);
             this.lblGramatica.TabIndex = 9;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(15, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 17);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Gramática:";
             // 
             // label1
             // 
@@ -108,7 +103,7 @@ namespace ParserApplication {
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Franklin Gothic Book", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(81, 25);
+            this.label2.Location = new System.Drawing.Point(145, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(249, 24);
             this.label2.TabIndex = 5;
@@ -210,12 +205,64 @@ namespace ParserApplication {
             this.btnAnalysis.UseVisualStyleBackColor = true;
             this.btnAnalysis.Click += new System.EventHandler(this.btnAnalysis_Click);
             // 
+            // datagridshift
+            // 
+            this.datagridshift.AllowUserToResizeColumns = false;
+            this.datagridshift.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.datagridshift.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.datagridshift.BackgroundColor = System.Drawing.Color.White;
+            this.datagridshift.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.datagridshift.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.datagridshift.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.datagridshift.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridshift.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Shift});
+            this.datagridshift.Location = new System.Drawing.Point(426, 74);
+            this.datagridshift.Name = "datagridshift";
+            this.datagridshift.RowHeadersVisible = false;
+            this.datagridshift.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.datagridshift.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.datagridshift.Size = new System.Drawing.Size(103, 161);
+            this.datagridshift.TabIndex = 10;
+            // 
+            // Shift
+            // 
+            this.Shift.HeaderText = "Shift";
+            this.Shift.Name = "Shift";
+            // 
+            // datagridgoto
+            // 
+            this.datagridgoto.AllowUserToResizeColumns = false;
+            this.datagridgoto.AllowUserToResizeRows = false;
+            this.datagridgoto.BackgroundColor = System.Drawing.Color.White;
+            this.datagridgoto.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.datagridgoto.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.datagridgoto.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.datagridgoto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.datagridgoto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Goto});
+            this.datagridgoto.Location = new System.Drawing.Point(426, 241);
+            this.datagridgoto.Name = "datagridgoto";
+            this.datagridgoto.RowHeadersVisible = false;
+            this.datagridgoto.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.datagridgoto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.datagridgoto.Size = new System.Drawing.Size(103, 154);
+            this.datagridgoto.TabIndex = 11;
+            // 
+            // Goto
+            // 
+            this.Goto.HeaderText = "Goto";
+            this.Goto.Name = "Goto";
+            // 
             // Parser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(427, 417);
+            this.ClientSize = new System.Drawing.Size(542, 417);
+            this.Controls.Add(this.datagridgoto);
+            this.Controls.Add(this.datagridshift);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label3);
@@ -234,6 +281,8 @@ namespace ParserApplication {
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridshift)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.datagridgoto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,7 +298,6 @@ namespace ParserApplication {
         private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblGramatica;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label6;
@@ -257,6 +305,10 @@ namespace ParserApplication {
         private System.Windows.Forms.TextBox txtAnalysis;
         private System.Windows.Forms.Button btnAnalysis;
         private System.Windows.Forms.Label lblAnalysisResult;
+        private System.Windows.Forms.DataGridView datagridshift;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Shift;
+        private System.Windows.Forms.DataGridView datagridgoto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Goto;
     }
 }
 
