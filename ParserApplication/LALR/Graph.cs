@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ParserApplication.TokenConstruction;
 
 namespace ParserApplication.LALR
@@ -17,6 +13,10 @@ namespace ParserApplication.LALR
         private List<FirstFollow> ListofFirst = new List<FirstFollow>();
         private List<FirstFollow> ListofFollow = new List<FirstFollow>();
         int estado=0;
+
+        public List<TableItem> getGrafo () {
+            return Grafo;
+        }
 
         public Graph(List<ListadeTokens> rules) {
             _rulelist = rules;
@@ -91,8 +91,7 @@ namespace ParserApplication.LALR
             { 
                 Follow(item.token.Value);
             }
-            foreach (var item in Grafo)
-            {
+            foreach (var item in Grafo) {
                 item.SetLookAheads(ListofFollow);
             }
             foreach (var item in Grafo)
